@@ -4,13 +4,13 @@ Some of my configuration files. See [this comprehensive list](http://dotfiles.gi
 
 ## installation
 
-Quick start (assumes GNU Stow is already installed; see below):
+Quick start (assumes [GNU Stow](http://www.gnu.org/software/stow/) is already installed; see below):
 
 ```bash
 cd
 git clone https://github.com/zackse/dot-files.git
 cd dot-files
-stow bash python vim  # etc.
+stow --no-folding bash python vim  # etc.
 ```
 
 This repo is arranged for the use of [GNU Stow](http://www.gnu.org/software/stow/) for management/installation. You can install `stow` with your package manager. For example:
@@ -18,14 +18,14 @@ This repo is arranged for the use of [GNU Stow](http://www.gnu.org/software/stow
 - `apt-get install stow`
 - `brew install stow`
 
-The `stow` command will create symlinks in the parent directory of this repo by default, meaning it expects to be located under `$HOME/dot-files`. If you clone this repo to a different location, change to that directory, then run `stow` with the `-t` argument to target your home directory:
+The `stow` command will create symlinks in the parent directory of the repo by default, meaning it expects this repository to be installed in `$HOME/dot-files`, for example. If you clone this repo to a different location, change to that directory, then run `stow` with the `-t` argument to target your home directory:
 
 ```bash
 cd /path/to/dot-files
-stow -t ~ bash # ...
+stow --no-folding -t ~ bash vim  # etc.
 ```
 
-Each subdirectory of this repo is a "package" to be installed, meaning it contains files and/or directories that will be installed via symlinks.
+Each subdirectory of this repo is a [package](https://www.gnu.org/software/stow/manual/stow.html#Terminology) to be installed, meaning it contains files and/or directories that will be installed via symlinks. The `--no-folding` argument is necessary if you plan to put other stow-managed files into any subdirectories. For example, I have `bash/.bashrc.d/work` and `bash/.bashrc.d/personal` in another repo, and to install those alongside the files in this repo, it's necessary to prevent `stow` from [folding directories](https://www.gnu.org/software/stow/manual/stow.html#tree-folding).
 
 ## further reading
 
