@@ -29,8 +29,7 @@ Each subdirectory of this repo is a "package" to be installed, meaning it contai
 
 ## further reading
 
-http://dotfiles.github.io/
-http://codyreichert.github.io/blog/2015/07/07/managing-your-dotfiles-with-gnu-stow/
-https://taihen.org/managing-dotfiles-with-gnu-stow/
-https://alexpearce.me/2016/02/managing-dotfiles-with-stow/
-
+- http://dotfiles.github.io/
+- http://codyreichert.github.io/blog/2015/07/07/managing-your-dotfiles-with-gnu-stow/
+- https://taihen.org/managing-dotfiles-with-gnu-stow/
+- https://alexpearce.me/2016/02/managing-dotfiles-with-stow/
