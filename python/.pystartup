@@ -1,0 +1,58 @@
+# http://stackoverflow.com/questions/947810/how-to-save-a-python-interactive-session/947820#947820
+#
+# Add auto-completion and a stored history file of commands to your Python
+# interactive interpreter. Requires Python 2.0+, readline. Autocomplete is
+# bound to the Esc key by default (you can change it - see readline docs).
+#
+# Store the file in ~/.pystartup, and set an environment variable to point
+# to it:  "export PYTHONSTARTUP=$HOME/.pystartup" in bash.
+
+import atexit
+import os
+import readline
+import rlcompleter
+
+historyPath = os.path.expanduser("~/.pyhistory")
+
+readline.parse_and_bind('tab: complete')
+
+def save_history(historyPath=historyPath):
+    import readline
+    readline.write_history_file(historyPath)
+
+if os.path.exists(historyPath):
+    readline.read_history_file(historyPath)
+
+atexit.register(save_history)
+del os, atexit, readline, rlcompleter, save_history, historyPath
+
+
+# these modules will be imported into the Python REPL by default
+import calendar
+import cStringIO
+import datetime
+import email
+import gzip
+import hashlib
+import io
+import itertools
+import json
+import math
+import os
+import pprint
+import random
+import re
+import shutil
+import smtplib
+import socket
+import ssl
+import struct
+import subprocess
+import sys
+import tempfile
+import threading
+import time
+import timeit
+import urllib2
+import uuid
+import zlib

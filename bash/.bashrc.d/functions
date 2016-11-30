@@ -1,0 +1,189 @@
+# -*- shell-script -*-
+# vim: syn=sh
+
+# start a web server in the current directory listening on PORT
+pyhttp() {
+    if [ -z "$1" ]; then
+        echo "Usage: pyhttp <PORT>"
+        return 1
+    fi
+    python -mSimpleHTTPServer $1
+}
+
+# open files in emacs (assumes emacs is running in server-mode).
+# strips trailing colon and anything after to ease pasting content
+# that includes line numbers (for example, output from `git grep')
+ec() {
+    for F in "$@"
+    do
+        FILE=${F%%:*}
+
+        emacsclient -n "$FILE"
+    done
+}
+
+# same, but in a new frame in the terminal
+ecn() {
+    for F in "$@"
+    do
+        FILE=${F%%:*}
+
+        emacsclient -t "$FILE"
+    done
+}
+
+# is this a word?
+spell() {
+    grep -i $1 /usr/share/dict/words
+}
+
+# review commit list before pushing to svn
+gdnn() {
+    git svn dcommit -n
+}
+
+# review changes (patches) before pushing to svn
+gdn() {
+    gdnn | tail -n +2 | awk '{print "git diff --color" " " $2 " " $3}' | sh
+}
+
+# page ls -l output
+ll() {
+    ls -l "$@" |less
+}
+
+# show 20 most recently modified files (by ctime)
+lcct() {
+    ls -lctr "$@" | tail -20
+}
+
+# run perl -wc on all args
+pwc() {
+    for i in "$@"; do
+    perl -wc $i
+    done
+}
+
+# copy, then edit
+cpm() {
+    if [ $# -ne 2 ]; then
+        echo Usage: cpm source dest
+        echo
+    else
+        /bin/cp -f $1 $2
+        /bin/chmod u+w $2
+        $EDITOR $2
+    fi
+}
+
+quote() {
+    perl -MString::ShellQuote -ple '$_= shell_quote($_)' $*
+}
+
+# edit perl module by name (`vipm LWP::UserAgent')
+# from scozens?
+vipm() {
+    $EDITOR `perldoc -l $1 | sed -e 's/pod$/pm/'`
+}
+# print the version of a perl module (`version LWP::Simple')
+# from scozens?
+version() {
+    perl -MUNIVERSAL::require -e "$1->require; print $1->VERSION"
+}
+
+# dump a list of perl modules imported in .pm files under DIR
+fmod() {
+    DIR=${1:-.}
+    echo searching $DIR...
+    find $DIR -name '*.pm' -exec egrep '^ *(use|require)' {} \; \
+    | perl -nle 's/^ *//; s/;\s*$//; print+(split / /)[1]' \
+    | sort -u
+}
+
+# ls -l, but only show directories.
+# could also use `find . -mindepth 1 -maxdepth 1 -type d -ls'
+lad() {
+    ls -l "$@" | grep '^d'
+}
+
+# number of days between two dates:
+# $ datediff 2016-07-24 2016-09-06
+# 44.000000 days
+datediff() {
+    perl -le '
+    BEGIN { $Date::Manip::Backend = "DM5"; }
+    use Date::Manip;
+    $d=DateCalc(ParseDate(+shift), ParseDate(+shift));
+    print Delta_Format($d => 0 => "%dt"), " days"
+    ' "$@"
+}
+
+# install a CPAN module
+perlmod() {
+    sudo cpanm "$@"
+}
+
+# encode/decode routines
+uri_escape() {
+    perl -MURI::Escape -le 'print uri_escape($_) for @ARGV' "$@"
+}
+uri_unescape() {
+    perl -MURI::Escape -le 'print uri_unescape($_) for @ARGV' "$@"
+}
+decode_base64() { 
+    perl -MMIME::Base64 -le 'print decode_base64(+shift)' "$@"
+}
+decode_qp() { 
+    perl -MMIME::QuotedPrint -le 'print decode_qp(+shift)' "$@"
+}
+encode_base64() { 
+    perl -MMIME::Base64 -le 'print encode_base64(+shift, "")' "$@"
+}
+encode_qp() { 
+    perl -MMIME::QuotedPrint -le 'print encode_qp(+shift, "")' "$@"
+}
+decode_rfc2047() {
+    perl -MEncode -MEncode::Alias -le '
+        define_alias("unicode-1-1-utf-7" => "utf-7");
+        define_alias("7bit-jis", "shift-jis");
+        define_alias("TIS-620" => "iso-8859-11");
+        define_alias("ksc5601" => "euc-kr");
+        define_alias("x-mac-roman" => "MacRoman");
+        # BNMA-3900: normalize Hebrew charset. nested quoting is required, see perldoc
+        define_alias(qr/^iso-8859-8-?i$/i => q{"iso-8859-8"});
+
+        for (@ARGV) {
+            print encode("UTF-8", decode("MIME-Header" => $_));
+        }' "$@"
+}
+
+# functions to use in PROMPT_COMMAND
+
+# emit git branch
+# http://vvv.tobiassjosten.net/bash/dynamic-prompt-with-git-and-ansi-colors
+git_prompt() {
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        return 0
+    fi
+
+    git_branch=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+
+    echo " [$git_branch]"
+}
+
+virtualenv_prompt() {
+    if [ -z "$VIRTUAL_ENV" ]; then
+        return 0
+    fi
+
+    venv=$(basename $VIRTUAL_ENV)
+    echo "($venv)"
+}
+
+update_for_perlbrew() {
+    if [ -z "$PERLBREW_PERL" ]; then
+        return 0
+    fi
+
+    echo "[$PERLBREW_PERL]"
+}

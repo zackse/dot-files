@@ -1,0 +1,39 @@
+# http://vim.wikia.com/wiki/GNU_Screen_integration
+# maybe fix running remotely under screen?
+maptimeout 5
+
+# no alert
+vbell off
+
+# no greeting
+startup_message off
+
+# define a bigger scrollback, default is 100 lines
+defscrollback 10000
+
+# prefer ^J (usually unused) to ^A which breaks beginning of line command.
+# also helps with nested screens (no need to escape command char for "inner"
+# screen)
+escape ^jj
+
+# terminal supports UTF-8
+defutf8 on
+
+# Support alternate screens so that, for example, when you quit out of
+# vi, the display is redrawn as it was before vi redrew the full screen.
+altscreen on
+
+# show status bar on last line of screen, regardless of terminal hardstatus support
+hardstatus alwayslastline
+
+# http://aperiodic.net/screen/man:string_escapes
+# white on black text - all windows up to current window
+# white on blue text  - current window
+# white on black text - all windows after the current window
+# white on black text - date/time
+hardstatus string '%{= wk}%-Lw%{= Wb}%50>%n%f* %t%{= wk}%+Lw%< %-=%D %M %d %{-}'
+
+screen -t bash 0
+screen -t bash 1
+screen -t bash 2
+select 0

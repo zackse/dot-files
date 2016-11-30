@@ -1,0 +1,25 @@
+# -*- shell-script -*-
+# vim: syn=sh
+
+# git-completion entries for aliases/functions
+if [ -r /usr/share/bash-completion/completions/git ]; then
+    . /usr/share/bash-completion/completions/git
+    __git_complete ga _git_add
+    __git_complete gb _git_branch
+    __git_complete gc _git_checkout
+    __git_complete gcp _git_cherry_pick
+    __git_complete gd _git_diff
+    __git_complete gdc _git_diff
+    __git_complete gf _git_fetch
+    __git_complete gg _git_grep
+    __git_complete gl _git_log
+    __git_complete gld _git_log
+    __git_complete glg _git_log
+    __git_complete glp _git_log
+    __git_complete gls _git_log
+    __git_complete gp _git_pull
+    __git_complete gpr _git_pull
+    __git_complete gr _git_rebase
+    __git_complete gs _git_show
+    __git_complete gw _git_whatchanged
+fi

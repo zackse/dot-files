@@ -1,0 +1,7 @@
+# -*- shell-script -*-
+# vim: syn=sh
+
+# tab completion for Acme::MetaSyntactic (generate var/machine names)
+if [ -n "$(which meta)" ]; then
+    complete -W "$(meta --themes)" meta
+fi
