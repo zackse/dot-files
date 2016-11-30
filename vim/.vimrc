@@ -29,6 +29,7 @@ au BufRead,BufNewFile release_notes set tw=0
 au BufRead,BufNewFile *.md set tw=0
 
 au BufRead,BufNewFile *.go set syn=go noexpandtab
+au BufRead,BufNewFile *.clj set syn=clojure
 
 " bbs
 autocmd FileType php set tw=0 noexpandtab tabstop=8 softtabstop=0 shiftwidth=0
