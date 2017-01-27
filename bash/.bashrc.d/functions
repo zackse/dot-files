@@ -160,12 +160,13 @@ decode_rfc2047() {
 # print out first line ("h"eader) and pass the rest to grep
 hgrep() {
     perl -e '
+        my $c;
         while (sysread(STDIN, $c, 1)) {
             print $c;
             last if $c eq "\n";
         }
         exec("grep", @ARGV) or die "exec(grep): $!"
-    ' "$@"
+    ' -- "$@"
 }
 
 # functions to use in PROMPT_COMMAND
