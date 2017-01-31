@@ -76,7 +76,7 @@ cpm() {
     fi
 }
 
-quote() {
+shellquote() {
     perl -MString::ShellQuote -ple '$_= shell_quote($_)' $*
 }
 
