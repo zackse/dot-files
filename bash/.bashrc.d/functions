@@ -76,10 +76,6 @@ cpm() {
     fi
 }
 
-shellquote() {
-    perl -MString::ShellQuote -ple '$_= shell_quote($_)' $*
-}
-
 # edit perl module by name (`vipm LWP::UserAgent')
 # from scozens?
 vipm() {
