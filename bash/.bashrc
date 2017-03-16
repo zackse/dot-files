@@ -25,6 +25,8 @@ if [ -n "$PS1" ]; then
         source /etc/bash_completion
     elif [ -r /usr/local/etc/bash_completion ]; then
         source /usr/local/etc/bash_completion
+    elif [ -r /usr/share/bash-completion/bash_completion ]; then
+        source /usr/share/bash-completion/bash_completion
     fi
 
     export RSYNC_RSH=ssh
