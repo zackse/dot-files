@@ -47,11 +47,6 @@ gdn() {
     gdnn | tail -n +2 | awk '{print "git diff --color" " " $2 " " $3}' | sh
 }
 
-# page ls -l output
-ll() {
-    ls -l "$@" |less
-}
-
 # show 20 most recently modified files (by ctime)
 lcct() {
     ls -lctr "$@" | tail -20
