@@ -2,6 +2,6 @@
 # vim: syn=sh
 
 # tab completion for Acme::MetaSyntactic (generate var/machine names)
-if [ -n "$(which meta)" ]; then
+if [ -n "$(which meta 2>/dev/null)" ]; then
     complete -W "$(meta --themes)" meta
 fi
