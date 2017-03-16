@@ -10,6 +10,11 @@ Quick start (assumes [GNU Stow](http://www.gnu.org/software/stow/) is already in
 cd
 git clone https://github.com/zackse/dot-files.git
 cd dot-files
+
+# install all:
+stow --no-folding */
+
+# or selected:
 stow --no-folding bash python vim  # etc.
 ```
 
