@@ -1,9 +1,18 @@
 # -*- shell-script -*-
 # vim: syn=sh
 
+installed=0
+
 # git-completion entries for aliases/functions
 if [ -r /usr/share/bash-completion/completions/git ]; then
     . /usr/share/bash-completion/completions/git
+    installed=1
+elif [ -r /etc/bash_completion.d/git ]; then
+    . /etc/bash_completion.d/git
+    installed=1
+fi
+
+if [ "$installed" = 1 ]; then
     __git_complete ga _git_add
     __git_complete gb _git_branch
     __git_complete gc _git_checkout
