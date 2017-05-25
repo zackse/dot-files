@@ -1,0 +1,26 @@
+[user]
+	name = Evan Zacks
+	email = zackse@gmail.com
+
+[alias]
+	ci = commit
+	# reuse previous commit message, but update commit date
+	cic = commit --reset-author -C
+	cp = cherry-pick
+	stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
+	# Commit a file, using the mtime for the commit date. Useful for
+	# files edited a while ago but whose changes weren't committed.
+	# Expects a single filename as the last argument. Prior arguments
+	# are passed unmodified to `git commit'.
+	#   http://stackoverflow.com/a/1853993/4356200
+	#   http://blogs.atlassian.com/2014/10/advanced-git-aliases/
+	cim = "!f() { for last; do true; done; date=`stat -c%y \"$last\"`; git commit --date=\"$date\" \"$@\"; }; f"
+
+[push]
+	default = simple
+
+[pull]
+	rebase = true
+
+[url "git@github.com:"]
+	pushInsteadOf = https://github.com/
