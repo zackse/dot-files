@@ -17,6 +17,7 @@ set matchpairs+=<:>               "Allow % to bounce between angles too
 set textwidth=78
 set backspace=indent,eol,start    "Make backspaces delete sensibly
 set guifont=Monospace\ 12
+set modelines=3
 
 " perl-specific settings
 au BufRead,BufNewFile *.pm,*.pl,*.t set syn=perl cindent cinoptions=t0,(2,)30,u0,*40 cinwords=if,else,while,do,for,elsif,sub cinkeys=0{,0},0),:,!^F,o,O,e comments=n:# formatoptions=crql nosmartindent
