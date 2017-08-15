@@ -45,6 +45,7 @@ if [ -n "$PS1" ]; then
     alias vi='vim'
     if [ "$(uname)" = "Darwin" ]; then
         alias ls='ls -G'
+        alias readlink=greadlink
     else
         alias ls='ls --color=auto'
     fi
