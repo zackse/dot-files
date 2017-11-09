@@ -32,8 +32,13 @@ au BufRead,BufNewFile *.md set tw=0
 au BufRead,BufNewFile *.go set syn=go noexpandtab
 au BufRead,BufNewFile *.clj set syn=clojure
 
+" C-x C-e to edit command line in bash
+au BufRead,BufNewFile /tmp/bash-fc-* set tw=0 syn=bash
+
 " bbs
 autocmd FileType php set tw=0 noexpandtab tabstop=8 softtabstop=0 shiftwidth=0
+
+au BufRead,BufNewFile *.pp set filetype=puppet
 
 " Makefile
 autocmd FileType make set noexpandtab
