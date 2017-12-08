@@ -114,6 +114,7 @@ if [ -n "$PS1" ]; then
     alias gau='git add -u'
     alias gcm='git checkout master'
     alias gpu='git push'
+    alias gpuu='git push -u origin HEAD'
     alias gsq='git squash'
     alias wip='git ci -m WIP'
 
