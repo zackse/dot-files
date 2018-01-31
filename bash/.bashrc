@@ -3,7 +3,7 @@
 # If running interactively, then:
 if [ -n "$PS1" ]; then
 
-    PATH=$PATH:~/bin:~/local/bin
+    PATH=~/bin/:$PATH:~/local/bin
 
     HISTSIZE=100000
     HISTFILESIZE=100000
