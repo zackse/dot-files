@@ -191,13 +191,30 @@ update_for_perlbrew() {
     echo "[$PERLBREW_PERL]"
 }
 
-# munge host(1) output into format suitable for pasting into /etc/hosts
+# Resolve hostname, emit /etc/hosts format.
+# Note: only emits the first IP found.
 hhost() {
     if [ -z "$1" ]; then
         echo "Usage: hhost <HOSTNAME>" >&2
         return 1
     fi
-    export HOST="$1"
-    host "$HOST" \
-    | perl -anle 'exit(print("$F[-1] $F[0]")) if $F[0] eq "$ENV{HOST}" and / has address /'
+
+    local HOST="$1"
+    if [ -n "$(command -v dig)" ]; then
+        IP=$(dig +short "$HOST" 2>&- | head -1)
+    elif [ -n "$(command -v host)" ]; then
+        IP=$(host "$HOST" \
+             | awk '/has address/ { print $NF; exit }')
+    else
+        echo "Can't find dig(1) or host(1)" >&2
+        return 1
+    fi
+
+    if [ -n "$IP" ]; then
+        echo "$HOST $IP"
+        return 0
+    else
+        echo "Could not resolve [$HOST]" >&2
+        return 1
+    fi
 }
