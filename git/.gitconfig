@@ -18,6 +18,7 @@
 	# Commit using the last commit message for the optional, single file/dir argument
 	# (default to the current directory)
 	cil = "!f() { for last; do true; done; git cic $(git log -1 --pretty=%h \"${last:-.}\") \"$@\"; }; f"
+	wip = commit -a -m WIP
 
 [push]
 	default = simple
