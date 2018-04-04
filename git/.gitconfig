@@ -15,6 +15,9 @@
 	#   http://stackoverflow.com/a/1853993/4356200
 	#   http://blogs.atlassian.com/2014/10/advanced-git-aliases/
 	cim = "!f() { for last; do true; done; date=`stat -c%y \"$last\"`; git commit --date=\"$date\" \"$@\"; }; f"
+	# Commit using the last commit message for the optional, single file/dir argument
+	# (default to the current directory)
+	cil = "!f() { for last; do true; done; git cic $(git log -1 --pretty=%h \"${last:-.}\") \"$@\"; }; f"
 
 [push]
 	default = simple
