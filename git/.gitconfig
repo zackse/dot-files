@@ -7,6 +7,8 @@
 	# reuse previous commit message, but update commit date
 	cic = commit --reset-author -C
 	cp = cherry-pick
+	# Include stash creation date, colorize output.
+	# (http://blogs.perl.org/users/ovid/2015/06/git-stashed.html)
 	stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
 	# Commit a file, using the mtime for the commit date. Useful for
 	# files edited a while ago but whose changes weren't committed.
