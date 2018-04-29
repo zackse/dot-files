@@ -249,3 +249,12 @@ fi
 dfmt () {
     docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'
 }
+
+# Remove line from ~/.ssh/known_hosts
+# Offending ECDSA key in /Users/zackse/.ssh/known_hosts:131
+remove_from_known_hosts() {
+    local LINE_NUMBER=$(perl -e 'print $1 if "@ARGV" =~ m{Offending.+key in.+\.ssh/known_hosts:(\d+)}' "$@")
+    if [ -n "$LINE_NUMBER" ]; then
+        sed -i -e ${LINE_NUMBER}d $HOME/.ssh/known_hosts
+    fi
+}
