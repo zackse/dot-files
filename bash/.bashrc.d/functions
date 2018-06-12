@@ -218,3 +218,23 @@ hhost() {
         return 1
     fi
 }
+
+# Print member DNs of the specified LDAP group.
+# Requires https://github.com/zackse/ldaps.
+members() {
+    if [ -z "$1" ]; then
+        echo "Usage: members <ldap-filter-or-uid>" >&2
+        return 1
+    fi
+
+    # base64-encoded content is prefixed with an extra ':' character
+    # e.g., 'member:: <b64_content>'
+    #    vs.'member: <non_b64_content>'
+    ldaps "$1" member \
+        | perl -MMIME::Base64 -anle '
+              next if ! s/^member://;
+              s/^: (.*)/decode_base64($1)/e;
+              s/^ //;
+          ' \
+        | sort
+}
