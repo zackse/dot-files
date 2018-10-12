@@ -35,6 +35,9 @@ au BufRead,BufNewFile *.clj set syn=clojure
 " C-x C-e to edit command line in bash
 au BufRead,BufNewFile /tmp/bash-fc-* set tw=0 syn=sh
 
+" terraform sh template
+au BufRead,BufNewFile *.sh.tpl set syn=sh
+
 " bbs
 autocmd FileType php set tw=0 noexpandtab tabstop=8 softtabstop=0 shiftwidth=0
 

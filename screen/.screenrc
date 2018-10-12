@@ -33,6 +33,8 @@ hardstatus alwayslastline
 # white on black text - date/time
 hardstatus string '%{= wk}%-Lw%{= Wb}%50>%n%f* %t%{= wk}%+Lw%< %-=%D %M %d %{-}'
 
+term xterm
+
 screen -t bash 0
 screen -t bash 1
 screen -t bash 2
