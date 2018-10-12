@@ -21,6 +21,17 @@
 	# (default to the current directory)
 	cil = "!f() { for last; do true; done; git cic $(git log -1 --pretty=%h \"${last:-.}\") \"$@\"; }; f"
 	wip = commit -a -m WIP
+	# meld any changes into previous commit
+	cam = commit --amend -a --no-edit
+
+	# https://gist.github.com/mwhite/6887990#gistcomment-1288654
+	# branch delete: This checks out your local master branch and deletes all local branches
+	#                that have already been merged to master
+	prune-stale-branches = !sh -c \"git checkout master && git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d\"
+
+	# branch delete here: Deletes all local branches that have already been merged to the branch
+	#                     that you're currently on
+	prune-stale-branches-here = !sh -c \"git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d\"
 
 [push]
 	default = simple
