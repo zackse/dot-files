@@ -231,13 +231,18 @@ members() {
     # e.g., 'member:: <b64_content>'
     #    vs.'member: <non_b64_content>'
     ldaps "$1" member \
-        | perl -MMIME::Base64 -anle '
+        | perl -MMIME::Base64 -aple '
               next if ! s/^member://;
               s/^: (.*)/decode_base64($1)/e;
               s/^ //;
           ' \
         | sort
 }
+
+# completion available
+if [ "$(declare -F _ldaps)" = "_ldaps" ]; then
+    complete -F _ldaps members
+fi
 
 # from cblack
 dfmt () {
