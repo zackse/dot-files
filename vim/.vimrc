@@ -7,7 +7,7 @@ set noincsearch
 set showmatch
 set softtabstop=4
 set shiftwidth=4
-set tabstop=4
+set tabstop=8
 set expandtab
 set shiftround                    "Indent/outdent to nearest tabstop
 set noerrorbells
