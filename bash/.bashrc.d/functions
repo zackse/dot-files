@@ -231,10 +231,11 @@ members() {
     # e.g., 'member:: <b64_content>'
     #    vs.'member: <non_b64_content>'
     ldaps "$1" member \
-        | perl -MMIME::Base64 -aple '
+        | perl -MMIME::Base64 -anle '
               next if ! s/^member://;
               s/^: (.*)/decode_base64($1)/e;
               s/^ //;
+              print
           ' \
         | sort
 }
