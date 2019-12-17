@@ -5,8 +5,8 @@ if [ -n "$PS1" ]; then
 
     PATH=~/bin/:$PATH:~/local/bin
 
-    HISTSIZE=100000
-    HISTFILESIZE=100000
+    HISTSIZE=1000000
+    HISTFILESIZE=1000000
     HISTCONTROL=ignoredups
     # include timestamps in history output
     HISTTIMEFORMAT=': %Y-%m-%d %H:%M:%S; '
