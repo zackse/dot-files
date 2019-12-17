@@ -259,3 +259,15 @@ remove_from_known_hosts() {
         sed -i -e ${LINE_NUMBER}d $HOME/.ssh/known_hosts
     fi
 }
+
+# dump image metadata
+imginfo() {
+    if [ -z "$1" ]; then
+        echo "Usage: imginfo <file>" >&2
+        return 1
+    fi
+    local pager=${PAGER:-cat}
+    perl -MImage::Info=image_info -MJSON::XS \
+        -e 'print JSON::XS->new->pretty->encode(image_info(+shift))' "$@" \
+        | $pager
+}
