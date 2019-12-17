@@ -44,7 +44,7 @@ autocmd FileType php set tw=0 noexpandtab tabstop=8 softtabstop=0 shiftwidth=0
 au BufRead,BufNewFile *.pp set filetype=puppet
 
 " Makefile
-autocmd FileType make set noexpandtab
+autocmd FileType make set tw=0 noexpandtab tabstop=8 softtabstop=0 shiftwidth=8
 
 let perl_want_scope_in_variables=1
 let perl_extended_vars=1
@@ -60,8 +60,6 @@ iab pdbg  use Data::Dumper 'Dumper';warn Dumper [];hi
 iab pbmk  use Benchmark qw( cmpthese );cmpthese -10, {};O     
 iab putm  use Test::More qw( no_plan );
  
-imap cpm (cherry picked from commit
-
 map ,pt :%! perltidy
 map ,ptv :'<,'>! perltidy
 
