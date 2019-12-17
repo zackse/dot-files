@@ -252,6 +252,7 @@ dfmt () {
 
 # Remove line from ~/.ssh/known_hosts
 # Offending ECDSA key in /Users/zackse/.ssh/known_hosts:131
+# aka 'ssh-keygen -f ~/.ssh/known_hosts -R <IP>'
 remove_from_known_hosts() {
     local LINE_NUMBER=$(perl -e 'print $1 if "@ARGV" =~ m{Offending.+key in.+\.ssh/known_hosts:(\d+)}' "$@")
     if [ -n "$LINE_NUMBER" ]; then
