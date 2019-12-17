@@ -37,6 +37,29 @@ spell() {
     grep -i $1 /usr/share/dict/words
 }
 
+# NYT Spelling Bee
+# https://www.nytimes.com/puzzles/spelling-bee
+# ... for when I give up
+# e.g., spelling-bee AEMNPTY
+spelling-bee() {
+    if [ -z "$1" ]; then
+        echo "Usage: spelling-bee <letters>" >&2
+        return 1
+    fi
+
+    # vim syntax highlighting gets confused by <<< input redirection
+    # :(
+    local letters=$(echo $1 | tr '[:upper:]' '[:lower:]')
+
+    # prefix each word with its length, then sort by length
+    perl -nle 'print if /^['$letters']+$/ and length >= 4' /usr/share/dict/words \
+        | while read i; do
+              echo ${#i} $i;
+          done \
+        | sort -k1 -n \
+        | cut -d" " -f2
+}
+
 # review commit list before pushing to svn
 gdnn() {
     git svn dcommit -n
