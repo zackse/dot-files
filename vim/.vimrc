@@ -32,6 +32,8 @@ au BufRead,BufNewFile *.md set tw=0
 au BufRead,BufNewFile *.go set syn=go noexpandtab
 au BufRead,BufNewFile *.clj set syn=clojure
 
+au BufRead,BufNewFile *.lua set syn=lua noexpandtab sw=8 ts=8 sts=8
+
 " C-x C-e to edit command line in bash
 au BufRead,BufNewFile /tmp/bash-fc-* set tw=0 syn=sh
 
