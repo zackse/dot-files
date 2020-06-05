@@ -33,6 +33,14 @@
 	#                     that you're currently on
 	prune-stale-branches-here = !sh -c \"git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d\"
 
+	# fetch upstream main branch ('master' or 'production'), then prune stale branches
+	cleanup = "!f() { if git branch -r | grep -q origin/production; then git checkout production; else git checkout master; fi; git pull; git prune-stale-branches-here; }; f"
+	cl = cleanup
+
+	pop = reset HEAD^
+
+	l1 = log --pretty=oneline
+
 [push]
 	default = simple
 
@@ -44,3 +52,11 @@
 
 [fetch]
 	prune = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[rebase]
+	autosquash = true
