@@ -3,7 +3,11 @@
 # If running interactively, then:
 if [ -n "$PS1" ]; then
 
-    PATH=~/bin/:$PATH:~/local/bin
+    if [ "$(uname)" = "Darwin" ]; then
+        PATH=~/bin/:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH:~/local/bin
+    else
+        PATH=~/bin/:$PATH:~/local/bin
+    fi
 
     HISTSIZE=1000000
     HISTFILESIZE=1000000
