@@ -129,6 +129,7 @@ if [ -n "$PS1" ]; then
     alias gpuu='git push -u origin HEAD'
     alias gsq='git squash'
     alias wip='git ci -m WIP'
+    alias gcl='git cleanup'
 
     # like perl -wc
     alias pywc='python -m py_compile'

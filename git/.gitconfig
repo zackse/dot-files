@@ -40,6 +40,7 @@
 	pop = reset HEAD^
 
 	l1 = log --pretty=oneline
+	zippy = !bash -c \"git commit -a -F <(fortune -s zippy)\"
 
 [push]
 	default = simple
