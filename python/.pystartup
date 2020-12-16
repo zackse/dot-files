@@ -29,7 +29,10 @@ del os, atexit, readline, rlcompleter, save_history, historyPath
 
 # these modules will be imported into the Python REPL by default
 import calendar
-import cStringIO
+try:
+    import cStringIO
+except:
+    pass
 import datetime
 import email
 import gzip
@@ -53,6 +56,9 @@ import tempfile
 import threading
 import time
 import timeit
-import urllib2
+try:
+    import urllib2
+except:
+    pass
 import uuid
 import zlib
