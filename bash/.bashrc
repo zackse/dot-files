@@ -25,11 +25,20 @@ if [ -n "$PS1" ]; then
     stty -ixon
 
     if [ -r /etc/bash_completion ]; then
-        source /etc/bash_completion
+        comp_file=/etc/bash_completion
     elif [ -r /usr/local/etc/bash_completion ]; then
-        source /usr/local/etc/bash_completion
+        comp_file=/usr/local/etc/bash_completion
     elif [ -r /usr/share/bash-completion/bash_completion ]; then
-        source /usr/share/bash-completion/bash_completion
+        comp_file=/usr/share/bash-completion/bash_completion
+    fi
+    if [ $comp_file ]; then
+        if [[ $__bashrc_bench ]]; then
+            TIMEFORMAT="completion $comp_file: %R"
+            time source $comp_file
+            unset TIMEFORMAT
+        else
+            source $comp_file
+        fi
     fi
 
     export RSYNC_RSH=ssh
@@ -127,19 +136,38 @@ if [ -n "$PS1" ]; then
     # often keep holding down the shift key after | in a pipeline...
     alias Grep=grep
 
+    # add timestamps to standard input
+    if [ -n "$(command -v ts)" ]; then
+        alias tss="ts '%Y-%m-%d %H:%M:%.S'"
+    fi
+
     PS1='\u@\h:\w\$ '
 
     # alternate/additional configs for personal, work, etc.
     if [ -d $HOME/.bashrc.d/ ]; then
         for sh in $HOME/.bashrc.d/*; do
-            [ -r ${sh} ] && source "${sh}"
+            [ -r ${sh} ] || continue
+            if [[ $__bashrc_bench ]]; then
+                TIMEFORMAT="$sh: %R"
+                time source "$sh"
+                unset TIMEFORMAT
+            else
+                source "$sh"
+            fi
         done
     fi
 
     # alternate/additional bash/tab completion
     if [ -d $HOME/.bash_completion.d/ ]; then
         for sh in $HOME/.bash_completion.d/*; do
-            [ -r ${sh} ] && source "${sh}"
+            [ -r ${sh} ] || continue
+            if [[ $__bashrc_bench ]]; then
+                TIMEFORMAT="completion $sh: %R"
+                time source "$sh"
+                unset TIMEFORMAT
+            else
+                source "$sh"
+            fi
         done
     fi
 fi
