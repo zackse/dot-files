@@ -70,6 +70,12 @@ gdn() {
     gdnn | tail -n +2 | awk '{print "git diff --color" " " $2 " " $3}' | sh
 }
 
+# kill all background jobs rather than a parade of
+# fg q fg q fg :q ...
+kill_background_jobs() {
+    jobs -p | xargs --no-run-if-empty kill
+}
+
 # show 20 most recently modified files (by ctime)
 lcct() {
     ls -lctr "$@" | tail -20
