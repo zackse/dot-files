@@ -153,11 +153,17 @@ uri_unescape() {
 decode_base64() { 
     perl -MMIME::Base64 -le 'print decode_base64(+shift)' "$@"
 }
+decode_html() {
+    perl -MHTML::Entities -le 'print decode_entities(+shift)' "$@"
+}
 decode_qp() { 
     perl -MMIME::QuotedPrint -le 'print decode_qp(+shift)' "$@"
 }
 encode_base64() { 
     perl -MMIME::Base64 -le 'print encode_base64(+shift, "")' "$@"
+}
+encode_html() {
+    perl -MHTML::Entities -le 'print encode_entities(+shift)' "$@"
 }
 encode_qp() { 
     perl -MMIME::QuotedPrint -le 'print encode_qp(+shift, "")' "$@"
