@@ -24,17 +24,19 @@
 	# meld any changes into previous commit
 	cam = commit --amend -a --no-edit
 
+	amend = commit --amend
+
 	# https://gist.github.com/mwhite/6887990#gistcomment-1288654
-	# branch delete: This checks out your local master branch and deletes all local branches
-	#                that have already been merged to master
-	prune-stale-branches = !sh -c \"git checkout master && git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d\"
+	# branch delete: This checks out your local main branch and deletes all local branches
+	#                that have already been merged to main
+	prune-stale-branches = !sh -c \"git checkout main && git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d\"
 
 	# branch delete here: Deletes all local branches that have already been merged to the branch
 	#                     that you're currently on
 	prune-stale-branches-here = !sh -c \"git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d\"
 
-	# fetch upstream main branch ('master' or 'production'), then prune stale branches
-	cleanup = "!f() { if git branch -r | grep -q origin/production; then git checkout production; else git checkout master; fi; git pull; git prune-stale-branches-here; }; f"
+	# fetch upstream main branch ('main' or 'master'), then prune stale branches
+	cleanup = "!f() { if git branch -r | grep -q origin/main; then git checkout main; else git checkout master; fi; git pull; git prune-stale-branches-here; }; f"
 	cl = cleanup
 
 	pop = reset HEAD^
@@ -61,3 +63,7 @@
 
 [rebase]
 	autosquash = true
+
+[core]
+	hooksPath = .githooks/
+	excludesfile = ~/.gitignore

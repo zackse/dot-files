@@ -11,6 +11,7 @@ elif [ -r /etc/bash_completion.d/git ]; then
     . /etc/bash_completion.d/git
     installed=1
 elif [ -r /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    . /usr/local/etc/bash_completion.d/git-completion.bash
     installed=1
 fi
 

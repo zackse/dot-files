@@ -30,6 +30,8 @@ if [ -n "$PS1" ]; then
         comp_file=/usr/local/etc/bash_completion
     elif [ -r /usr/share/bash-completion/bash_completion ]; then
         comp_file=/usr/share/bash-completion/bash_completion
+    elif [ -r /usr/local/share/bash-completion/bash_completion ]; then
+        comp_file=/usr/local/share/bash-completion/bash_completion
     fi
     if [ $comp_file ]; then
         if [[ $__bashrc_bench ]]; then
@@ -109,6 +111,7 @@ if [ -n "$PS1" ]; then
     alias gdc='git diff --cached'
     alias gf='git fetch -p'
     alias gg='git grep'
+    alias ggni='git grep --no-index'
     alias gl='git log --decorate'
     alias gld='git log --decorate'
     alias glg='git log --graph --decorate --all'
@@ -117,19 +120,19 @@ if [ -n "$PS1" ]; then
     alias gp='git pull'
     alias gpr='git pull --rebase'
     alias gr='git rebase'
-    alias gro='git rebase origin/master'
+    alias gro='git rebase $(git rev-parse --verify origin/main 2>&- || git rev-parse --verify origin/master 2>&-)'
     alias gs='git show'
     alias gsl='git svn log --show-commit'
     alias gsr='git svn rebase'
     alias gst='git status'
     alias gw='git whatchanged'
     alias gau='git add -u'
-    alias gcm='git checkout master'
     alias gpu='git push'
     alias gpuu='git push -u origin HEAD'
     alias gsq='git squash'
     alias wip='git ci -m WIP'
     alias gcl='git cleanup'
+    alias grc='git rebase --continue'
 
     # like perl -wc
     alias pywc='python -m py_compile'
@@ -172,3 +175,5 @@ if [ -n "$PS1" ]; then
         done
     fi
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
