@@ -189,17 +189,35 @@ decode_rfc2047() {
         }' "$@"
 }
 
-# print out first line ("h"eader) and pass the rest to grep
+# print out first N lines ("h"eader) and pass the rest to grep
 hgrep() {
     perl -e '
+        BEGIN {
+          # allow "-n 2", for example
+          $HEADER_LINES = ($ARGV[0] =~ /^-+n/ && shift @ARGV && shift @ARGV) || 1;
+        }
         my $c;
         while (sysread(STDIN, $c, 1)) {
             print $c;
-            last if $c eq "\n";
+            $lines_seen++ if $c eq "\n";
+            last if $lines_seen == $HEADER_LINES;
         }
         exec("grep", @ARGV) or die "exec(grep): $!"
     ' -- "$@"
 }
+
+hgrepX() {
+    local lines=1
+    if [ "$1" = "-n" ]; then
+        lines=${2:-1}
+        shift
+        shift
+    fi
+    exec 3>&1
+    tee >(head -n $lines >&3) | grep "$@"
+    exec 3>&-
+}
+
 
 # functions to use in PROMPT_COMMAND
 
