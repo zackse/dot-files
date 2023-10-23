@@ -18,12 +18,14 @@ set textwidth=78
 set backspace=indent,eol,start    "Make backspaces delete sensibly
 set guifont=Monospace\ 12
 set modelines=3
+set nofileignorecase
 
 " perl-specific settings
 au BufRead,BufNewFile *.pm,*.pl,*.t set syn=perl cindent cinoptions=t0,(2,)30,u0,*40 cinwords=if,else,while,do,for,elsif,sub cinkeys=0{,0},0),:,!^F,o,O,e comments=n:# formatoptions=crql nosmartindent
 " disable auto wrapping in html-like files
 au BufRead,BufNewFile *.html,*.tmpl,*.shtml set textwidth=0 wrapmargin=0 syn=html
 au BufRead,BufNewFile *.xml set textwidth=0 wrapmargin=0 syn=xml
+au BufRead,BufNewFile Fastfile set syn=ruby
 
 au BufRead,BufNewFile cmd__ set syn=sh
 au BufRead,BufNewFile release_notes set tw=0
@@ -33,6 +35,8 @@ au BufRead,BufNewFile *.go set syn=go noexpandtab
 au BufRead,BufNewFile *.clj set syn=clojure
 
 au BufRead,BufNewFile *.lua set syn=lua noexpandtab sw=8 ts=8 sts=8
+
+au BufRead,BufNewFile *.tf set syn=tf sw=2 ts=2 sts=2
 
 " C-x C-e to edit command line in bash
 au BufRead,BufNewFile /tmp/bash-fc-* set tw=0 syn=sh
