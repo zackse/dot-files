@@ -3,12 +3,6 @@
 
 installed=0
 
-if [ "$(uname -p)" = "arm" ]; then
-    brew_prefix=/opt/homebrew
-else
-    brew_prefix=/usr/local
-fi
-
 # git-completion entries for aliases/functions
 if [ -r /usr/share/bash-completion/completions/git ]; then
     . /usr/share/bash-completion/completions/git
@@ -16,8 +10,8 @@ if [ -r /usr/share/bash-completion/completions/git ]; then
 elif [ -r /etc/bash_completion.d/git ]; then
     . /etc/bash_completion.d/git
     installed=1
-elif [ -r $brew_prefix/etc/bash_completion.d/git-completion.bash ]; then
-    . $brew_prefix/etc/bash_completion.d/git-completion.bash
+elif [ -r $HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash ]; then
+    . $HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash
     installed=1
 fi
 

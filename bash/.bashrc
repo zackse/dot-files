@@ -2,13 +2,20 @@
 
 # If running interactively, then:
 if [ -n "$PS1" ]; then
-    if [ "$(uname -p)" = "arm" ]; then
-        brew_prefix=/opt/homebrew
-    else
-        brew_prefix=/usr/local
-    fi
+    export HOMEBREW_PREFIX="/opt/homebrew";
+    export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+    export HOMEBREW_REPOSITORY="/opt/homebrew";
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+    export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+    export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_EMOJI=1
+    export HOMEBREW_NO_INSTALL_CLEANUP=1
+    export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+
     if [ "$(uname)" = "Darwin" ]; then
-        PATH=~/bin:$brew_prefix/bin:$brew_prefix/opt/coreutils/libexec/gnubin:$brew_prefix/opt/findutils/libexec/gnubin:$PATH:~/local/bin
+        PATH=~/bin:$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin:$PATH:~/local/bin
     else
         PATH=~/bin:$PATH:~/local/bin
     fi
@@ -31,12 +38,12 @@ if [ -n "$PS1" ]; then
 
     if [ -r /etc/bash_completion ]; then
         comp_file=/etc/bash_completion
-    elif [ -r $brew_prefix/etc/bash_completion ]; then
-        comp_file=$brew_prefix/etc/bash_completion
+    elif [ -r $HOMEBREW_PREFIX/etc/bash_completion ]; then
+        comp_file=$HOMEBREW_PREFIX/etc/bash_completion
     elif [ -r /usr/share/bash-completion/bash_completion ]; then
         comp_file=/usr/share/bash-completion/bash_completion
-    elif [ -r $brew_prefix/share/bash-completion/bash_completion ]; then
-        comp_file=$brew_prefix/share/bash-completion/bash_completion
+    elif [ -r $HOMEBREW_PREFIX/share/bash-completion/bash_completion ]; then
+        comp_file=$HOMEBREW_PREFIX/share/bash-completion/bash_completion
     fi
     if [ $comp_file ]; then
         if [[ $__bashrc_bench ]]; then
