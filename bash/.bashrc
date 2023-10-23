@@ -2,8 +2,13 @@
 
 # If running interactively, then:
 if [ -n "$PS1" ]; then
+    if [ "$(uname -p)" = "arm" ]; then
+        brew_prefix=/opt/homebrew
+    else
+        brew_prefix=/usr/local
+    fi
     if [ "$(uname)" = "Darwin" ]; then
-        PATH=~/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH:~/local/bin
+        PATH=~/bin:$brew_prefix/bin:$brew_prefix/opt/coreutils/libexec/gnubin:$brew_prefix/opt/findutils/libexec/gnubin:$PATH:~/local/bin
     else
         PATH=~/bin:$PATH:~/local/bin
     fi
@@ -26,12 +31,12 @@ if [ -n "$PS1" ]; then
 
     if [ -r /etc/bash_completion ]; then
         comp_file=/etc/bash_completion
-    elif [ -r /usr/local/etc/bash_completion ]; then
-        comp_file=/usr/local/etc/bash_completion
+    elif [ -r $brew_prefix/etc/bash_completion ]; then
+        comp_file=$brew_prefix/etc/bash_completion
     elif [ -r /usr/share/bash-completion/bash_completion ]; then
         comp_file=/usr/share/bash-completion/bash_completion
-    elif [ -r /usr/local/share/bash-completion/bash_completion ]; then
-        comp_file=/usr/local/share/bash-completion/bash_completion
+    elif [ -r $brew_prefix/share/bash-completion/bash_completion ]; then
+        comp_file=$brew_prefix/share/bash-completion/bash_completion
     fi
     if [ $comp_file ]; then
         if [[ $__bashrc_bench ]]; then

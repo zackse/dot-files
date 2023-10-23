@@ -1,6 +1,12 @@
 # -*- shell-script -*-
 # vim: syn=sh
 
+if [ "$(uname -p)" = "arm" ]; then
+    brew_prefix=/opt/homebrew
+else
+    brew_prefix=/usr/local
+fi
+
 # start a web server in the current directory listening on PORT
 pyhttp() {
     if [ -z "$1" ]; then
