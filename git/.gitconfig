@@ -67,3 +67,7 @@
 [core]
 	hooksPath = .githooks/
 	excludesfile = ~/.gitignore
+[init]
+	defaultBranch = main
+[advice]
+	skippedCherryPicks = false
