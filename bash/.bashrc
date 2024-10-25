@@ -22,7 +22,7 @@ if [ -n "$PS1" ]; then
 
     HISTSIZE=1000000
     HISTFILESIZE=1000000
-    HISTCONTROL=ignoredups
+    HISTCONTROL=ignoreboth
     # include timestamps in history output
     HISTTIMEFORMAT=': %Y-%m-%d %H:%M:%S; '
 
